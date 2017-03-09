@@ -1,0 +1,257 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import Popup kivy.uix.popup
+
+<CustLabel@Label>:
+	#color: 0, 0, 0, 1
+	color: 1, 1, 1, 1
+	markup: True
+
+ScreenManagement:
+    transition: NoTransition()
+    MainScreen:
+    DialScreen:
+	
+<CPopup>:
+    title: 'SMS'
+    size_hint: 1.0, 0.6
+    id: cpopup
+	auto_dismiss: False
+	
+	BoxLayout:
+		orientation: 'vertical'
+		Label:
+			text: "Message sent!"
+			font_size: 20
+			size_hint_y: 0.6
+		Button:
+			text: "OK"
+			size_hint_y: 0.4
+			halign: 'center'
+			on_release: cpopup.on_press_dismiss()
+			
+<DPopup>:
+    title: 'Dial'
+    size_hint: 1.0, 1.0
+    id: dpopup
+	auto_dismiss: False
+	
+	BoxLayout:
+		orientation: 'vertical'
+		Label:
+			text: dpopup.dialNumber
+			font_size: 20
+		BoxLayout:
+			Button:
+				text: "7"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('7')
+			Button:
+				text: "8"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('8')
+			Button:
+				text: "9"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('9')
+		BoxLayout:
+			Button:
+				text: "4"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('4')
+			Button:
+				text: "5"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('5')
+			Button:
+				text: "6"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('6')
+		BoxLayout:
+			Button:
+				text: "1"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('1')
+			Button:
+				text: "2"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('2')
+			Button:
+				text: "3"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('3')
+		BoxLayout:
+			Button:
+				text: "*"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('*')
+			Button:
+				text: "0"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('0')
+			Button:
+				text: "#"
+				halign: 'center'
+				on_release: dpopup.on_press_dial('#')
+		BoxLayout:
+			Button:
+				text: "Call"
+				halign: 'center'
+				on_release: dpopup.on_press_dismiss()
+			Button:
+				text: "Cancel"
+				halign: 'center'
+				on_release: dpopup.on_press_dismiss()
+
+				
+<MainScreen>:
+    name: 'main'
+
+	BoxLayout:
+		orientation: 'vertical'
+		
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint_y: 0.075
+			
+			Image:
+				source: 'img/signal/' + app.signalstrength + '.png'
+				size_hint: 0.12, 1
+			
+			CustLabel:
+				text: "2G"
+				size_hint_x: 0.085
+				font_size: 16
+			
+			
+			CustLabel:
+				text: app.timex
+				font_size: 18
+				size_hint_x: 0.575
+				canvas:
+				
+			BoxLayout:
+				size_hint_x: 0.22
+				orientation: 'horizontal'
+				Image:
+					source: 'img/batt/vert/' + app.battery + '.png'
+					size_hint: 0.3, 1
+				
+				CustLabel:
+					text: app.battPercent
+					size_hint_x: 0.70
+					font_size: 16
+					
+		BoxLayout:
+			size_hint_y: 0.2
+			padding: 20, 10
+			BoxLayout:
+				orientation: 'vertical'
+				CustLabel:			
+					size_hint_y: 0.65
+					font_size: 30
+					text: app.datex
+					canvas:
+						Color:
+							rgba: 1, 0, 1, 0
+						Rectangle:
+							pos: self.pos
+							size: self.size
+				CustLabel:			
+					size_hint_y: 0.30
+					text: app.dayx
+					canvas:
+						Color:
+							rgba: 0.4, 0.1, 0.7, 0.2
+						Rectangle:
+							pos: self.pos
+							size: self.size
+			BoxLayout:
+				orientation: 'vertical'
+				CustLabel:			
+					size_hint_y: 0.65
+					font_size: 30
+					text: app.monthx
+					canvas:
+						Color:
+							rgba: 0.4, 0.1, 0.7, 0
+						Rectangle:
+							pos: self.pos
+							size: self.size
+				CustLabel:			
+					size_hint_y: 0.30
+					text: app.yearx
+					canvas:
+						Color:
+							rgba: 1, 0, 1, 0.2
+						Rectangle:
+							pos: self.pos
+							size: self.size						
+		CustLabel:
+			padding: 30, 30
+			size_hint_y: 0.1
+			font_size: 35
+			text: 'Dialer'
+
+		BoxLayout:
+			padding: 20, 20
+			size_hint_y: 0.43
+			Image:
+				source: 'img/phones/phone_receiver.png'				
+
+
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint_y: 0.1
+			Button:
+				id: reg
+				text: "Emergency Call"
+				on_press: app.root.current = 'dial'
+				on_release: root.FONAstartCall()
+				background_color: 255, 0, 1, 0.9
+				
+			Button:
+				id: verif
+				text: "Send SOS"
+				on_press: root.on_pressed()
+				background_color: 3.5, 2, 0, 0.9
+				
+		Button:
+			size_hint_y: 0.095
+			id: verif
+			text: "Send SOS"			
+			background_color: 0.4, 0.7, 1, 1	
+			on_press: root.FONAsendSMS()
+	
+	
+<DialScreen>:
+    name: 'dial'
+	
+	BoxLayout:
+		orientation: 'vertical'
+		CustLabel:
+			halign: 'center'
+			valign: 'bottom'			
+			size_hint_y: 0.2
+			font_size: 36
+			text: 'Calling EMD...'
+			markup: True
+			
+		BoxLayout:
+			size_hint_y: 0.45
+			padding: 30, 30
+			Image:
+				source: 'img/phones/phone.png'
+				valign: 'middle'			
+		
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint_y: 0.15
+			ToggleButton:
+				text: 'Loudspeaker'
+				background_color: 0.5, 0.3, 0.8, 0.8
+
+			Button:
+				on_press: root.FONAendCall()
+				on_release: app.root.current = 'main'
+				text: 'End Call'
+				background_color: 255, 0, 0, 0.9

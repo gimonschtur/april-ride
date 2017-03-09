@@ -1,0 +1,19 @@
+<PaintWindow>:
+    orientation: 'vertical'
+    #CPopup:
+
+<CPopup>:
+    title: 'Pick a Color'
+    size_hint: 1.0, 0.6
+    id: cpopup
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        ColorPicker:
+            size_hint: 1.0, 1.0
+
+        Button:
+            text: 'OK'
+            size_hint: 1.0, 0.2
+            on_press: cpopup.on_press_dismiss()
